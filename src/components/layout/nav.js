@@ -45,7 +45,7 @@ export const Nav = ({ setOpenSideMenu }) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            Photos
+            Магазин картин
           </Typography>
           {auth && (
             <div>

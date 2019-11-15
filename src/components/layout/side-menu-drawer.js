@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector, shallowEqual } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
@@ -19,12 +20,22 @@ const menu = [
   },
   {
     key: "/login",
-    label: "Авторизация"
+    label: "Авторизация",
+    isAuthorized: true
+  },
+  {
+    key: "/register",
+    label: "Регистрация",
+    isAuthorized: true
   }
 ];
 
 export const SideMenuDrawer = ({ open, setOpen }) => {
   const classes = useStyles();
+  const user = useSelector(state => state.user, shallowEqual);
+  const isAuthorized = user.isAuthorized;
+
+  const userMenu = menu.filter(item => item.isAuthorized !== isAuthorized);
 
   return (
     <SwipeableDrawer
@@ -34,7 +45,7 @@ export const SideMenuDrawer = ({ open, setOpen }) => {
     >
       <div className={classes.list} role="presentation">
         <List>
-          {menu.map(item => (
+          {userMenu.map(item => (
             <NavLink key={item.key} to={item.key}>
               <ListItem button>
                 <ListItemText primary={item.label} />
