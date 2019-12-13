@@ -6,20 +6,22 @@ import Home from "../../pages/index";
 import Login from "../../pages/login";
 import Register from "../../pages/register";
 
+import PrivateRoute from "../private-route";
+
 export const Routes = ({ user }) => {
-  const isAuthorized = user.isAuthorized;
+  const isAuthenticated = user.isAuthenticated;
 
   return (
     <Switch>
       {/* exact - точное совпадение */}
-      <Route exact path="/">
+      <PrivateRoute exact path="/">
         <Home />
-      </Route>
+      </PrivateRoute>
       <Route exact path="/login">
-        {isAuthorized ? <Redirect to="/" /> : <Login />}
+        {isAuthenticated ? <Redirect to="/" /> : <Login />}
       </Route>
       <Route exact path="/register">
-        {isAuthorized ? <Redirect to="/" /> : <Register />}
+        {isAuthenticated ? <Redirect to="/" /> : <Register />}
       </Route>
     </Switch>
   );

@@ -6,7 +6,7 @@ const initialState = {
   firstName: undefined,
   lastName: undefined,
   phone: undefined,
-  isAuthorized: false
+  isAuthenticated: true
 };
 
 export const userReducer = createReducer(initialState, {
@@ -14,7 +14,7 @@ export const userReducer = createReducer(initialState, {
     if (payload) {
       state = {
         ...payload,
-        isAuthorized: true
+        isAuthenticated: true
       };
     }
 
