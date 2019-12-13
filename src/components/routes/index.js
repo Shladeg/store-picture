@@ -1,13 +1,12 @@
 import React from "react";
-import { useSelector, shallowEqual } from "react-redux";
+import { useSelector, shallowEqual, connect } from "react-redux";
 import { Switch, Route, Redirect } from "react-router-dom";
 
 import Home from "../../pages/index";
 import Login from "../../pages/login";
 import Register from "../../pages/register";
 
-export const Routes = () => {
-  const user = useSelector(state => state.user, shallowEqual);
+export const Routes = ({ user }) => {
   const isAuthorized = user.isAuthorized;
 
   return (
@@ -26,4 +25,8 @@ export const Routes = () => {
   );
 };
 
-export default Routes;
+const mapStateToProps = state => ({
+  user: state.user
+});
+
+export default connect(mapStateToProps)(Routes);

@@ -12,8 +12,10 @@ const initialState = {
 export const userReducer = createReducer(initialState, {
   [login]: (state, { payload }) => {
     if (payload) {
-      state = payload;
-      state.isAuthorized = true;
+      state = {
+        ...payload,
+        isAuthorized: true
+      };
     }
 
     return state;

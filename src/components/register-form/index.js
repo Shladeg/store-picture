@@ -9,7 +9,6 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { register } from "../../store/users";
-import { login } from "../../store/user";
 
 const useStyles = makeStyles(theme => ({
   "@global": {
@@ -62,9 +61,10 @@ const AntSwitch = withStyles(theme => ({
 
 export const RegisterForm = () => {
   const classes = useStyles();
-  const [role, setRole] = useState(false);
+  const [role, setRole] = useState(true);
 
   const dispatch = useDispatch();
+
   const onRegister = event => {
     event.preventDefault();
 
@@ -72,7 +72,6 @@ export const RegisterForm = () => {
     const userData = JSON.parse(JSON.stringify(Object.fromEntries(data)));
 
     dispatch(register({ ...userData, isCustomer: role }));
-    dispatch(login(userData));
   };
 
   return (
@@ -102,11 +101,11 @@ export const RegisterForm = () => {
       />
       <Typography component="div">
         <Grid component="label" container alignItems="center" spacing={1}>
-          <Grid item>Покупатель</Grid>
+          <Grid item>Художник</Grid>
           <Grid item>
             <AntSwitch checked={role} onChange={() => setRole(!role)} />
           </Grid>
-          <Grid item>Художник</Grid>
+          <Grid item>Покупатель</Grid>
         </Grid>
       </Typography>
       <Button

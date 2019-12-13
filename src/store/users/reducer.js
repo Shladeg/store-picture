@@ -6,7 +6,9 @@ const initialState = [];
 
 export const usersReducer = createReducer(initialState, {
   [register]: (state, { payload }) => {
-    state = [payload, ...state];
+    if (payload) {
+      state = [payload, ...state];
+    }
 
     return state;
   }

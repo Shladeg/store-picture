@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
@@ -22,20 +22,19 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export const LoginForm = () => {
+const LoginForm = ({ onLogin }) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
 
-  const onLogin = event => {
+  const onSubmit = event => {
     event.preventDefault();
     const data = new FormData(event.target);
     const userData = JSON.parse(JSON.stringify(Object.fromEntries(data)));
 
-    dispatch(login(userData));
+    onLogin(userData);
   };
 
   return (
-    <form className={classes.form} noValidate onSubmit={onLogin}>
+    <form className={classes.form} noValidate onSubmit={onSubmit}>
       <Typography>Авторизация</Typography>
       <TextField
         variant="outlined"
@@ -72,4 +71,8 @@ export const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+const mapDispatchToProps = dispatch => ({
+  onLogin: user => dispatch(login(user))
+});
+
+export default connect(null, mapDispatchToProps)(LoginForm);

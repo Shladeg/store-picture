@@ -1,17 +1,22 @@
 import { createAction } from "@reduxjs/toolkit";
-import { useSelector } from "react-redux";
 import { NotificationManager } from "react-notifications";
 
+// Не забывай что createAction должен возвращать payload
 export const login = createAction("login", payload => {
-  const users = useSelector(state => state.users);
+  const { users } = window.store.getState();
 
-  const user = users.find(user => user.email === payload.enail);
+  // TODO: проверять на пароль
+  const user = users.find(user => user.email === payload.email);
   if (!user) {
-    // NotificationManager.warning("Вы не зарегистрированы");
-    return undefined;
+    NotificationManager.warning("Пользователь с таким email не существует");
+    return {
+      payload: null
+    };
   }
 
-  return payload;
+  return {
+    payload: user
+  };
 });
 
 export const logout = createAction("logout");
