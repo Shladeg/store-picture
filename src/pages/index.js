@@ -5,7 +5,7 @@ import TestCompoennt from "../components/test";
 
 export const Home = () => (
   <LayoutPage>
-    Home <TestCompoennt />
+    <TestCompoennt />
   </LayoutPage>
 );
 

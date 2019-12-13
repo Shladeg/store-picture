@@ -2,16 +2,16 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 
 import LayoutPage from "../components/layout";
-import LoginForm from "../components/login-form";
+import RegisterForm from "../components/register-form";
 
-export const Login = () => (
+export const Register = () => (
   <LayoutPage>
     <Grid container justify="center">
       <Grid item lg={4} xs={12}>
-        <LoginForm />
+        <RegisterForm />
       </Grid>
     </Grid>
   </LayoutPage>
 );
 
-export default Login;
+export default Register;
