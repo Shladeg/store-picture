@@ -1,11 +1,12 @@
 import { createReducer } from "@reduxjs/toolkit";
 
-import { createPicture, addFavorite, removeFavorite } from "./actions";
+import { createPicture, addFavorite, removeFavorite, search } from "./actions";
 import pictureList from "../../data/pictures";
 
 const initialState = {
   favorites: [],
-  list: pictureList
+  list: pictureList,
+  search: ""
 };
 
 export const picturesReducer = createReducer(initialState, {
@@ -32,6 +33,16 @@ export const picturesReducer = createReducer(initialState, {
 
   [removeFavorite]: (state, { payload }) => {
     state.favorites = state.favorites.filter(item => item !== payload);
+
+    return state;
+  },
+
+  [search]: (state, { payload }) => {
+    state.search = payload;
+
+    const searching = item =>
+      item.title.toLowerCase().includes(payload.toLowerCase());
+    state.list = pictureList.filter(searching);
 
     return state;
   }
