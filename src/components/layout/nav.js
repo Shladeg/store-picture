@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -8,6 +9,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
+
+import { logout } from "../../store/user/actions";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,11 +28,17 @@ export const Nav = ({ setOpenSideMenu }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
 
+  const user = useSelector(state => state.user);
+  const isAuthenticated = user.isAuthenticated;
+
   const onCloseMenu = () => setAnchorEl(null);
   const onClickMenu = event => setAnchorEl(event.currentTarget);
 
-  const auth = true;
   const handleClose = () => {};
+
+  const dispatch = useDispatch();
+
+  const onLogout = () => dispatch(logout());
 
   return (
     <div>
@@ -47,7 +56,7 @@ export const Nav = ({ setOpenSideMenu }) => {
           <Typography variant="h6" className={classes.title}>
             Магазин картин
           </Typography>
-          {auth && (
+          {isAuthenticated && (
             <div>
               <IconButton
                 aria-label="account of current user"
@@ -74,7 +83,7 @@ export const Nav = ({ setOpenSideMenu }) => {
                 onClose={onCloseMenu}
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={onLogout}>Выйти</MenuItem>
               </Menu>
             </div>
           )}

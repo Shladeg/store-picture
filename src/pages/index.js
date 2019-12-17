@@ -1,11 +1,11 @@
 import React from "react";
 
 import LayoutPage from "../components/layout";
-import TestCompoennt from "../components/test";
+import ListPicture from "../components/list-picture";
 
 export const Home = () => (
   <LayoutPage>
-    <TestCompoennt />
+    <ListPicture />
   </LayoutPage>
 );
 
