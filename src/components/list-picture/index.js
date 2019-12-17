@@ -1,8 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 
 import Card from "../card";
+import { getList } from "../../store/pictures";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -13,14 +15,14 @@ const useStyles = makeStyles(theme => ({
 
 export const ListPicture = () => {
   const classes = useStyles();
-  const list = [1, 2, 4, 5];
+  const list = useSelector(getList);
 
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
         {list.map(item => (
-          <Grid item xs={12} sm={6}>
-            <Card key={item} name={item} />
+          <Grid key={item.id} item xs={12} sm={6}>
+            <Card item={item} />
           </Grid>
         ))}
       </Grid>
