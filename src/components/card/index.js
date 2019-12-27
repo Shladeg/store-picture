@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export const CardPicture = ({ item }) => {
+export const CardPicture = ({ item, onClick }) => {
   const dispatch = useDispatch();
   const isFavorite = useSelector(state => getIsFavoriteFactory(state)(item.id));
   const classes = useStyles();
@@ -78,6 +78,7 @@ export const CardPicture = ({ item }) => {
         className={classes.media}
         image={item.image}
         title={item.title}
+        onClick={() => onClick(item.id)}
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">

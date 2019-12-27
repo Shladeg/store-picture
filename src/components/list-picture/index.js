@@ -2,9 +2,11 @@ import React from "react";
 import { useSelector } from "react-redux";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
+import { useHistory } from "react-router-dom";
 
 import Card from "../card";
 import { getList } from "../../store/pictures";
+import DataProvider from "./data-provider";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -14,18 +16,23 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const ListPicture = () => {
+  const history = useHistory();
   const classes = useStyles();
   const list = useSelector(getList);
 
+  const showFullPicture = id => history.push(`/${id}`);
+
   return (
     <div className={classes.root}>
-      <Grid container spacing={1}>
-        {list.map(item => (
-          <Grid key={item.id} item xs={12} sm={6}>
-            <Card item={item} />
-          </Grid>
-        ))}
-      </Grid>
+      <DataProvider>
+        <Grid container spacing={1}>
+          {list.map(item => (
+            <Grid key={item.id} item xs={12} sm={6}>
+              <Card item={item} onClick={showFullPicture} />
+            </Grid>
+          ))}
+        </Grid>
+      </DataProvider>
     </div>
   );
 };
