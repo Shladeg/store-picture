@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, shallowEqual, connect } from "react-redux";
+import { connect } from "react-redux";
 import { Switch, Route, Redirect } from "react-router-dom";
 
 import Home from "../../pages/index";
@@ -14,7 +14,7 @@ export const Routes = ({ user }) => {
   return (
     <Switch>
       {/* exact - точное совпадение */}
-      <PrivateRoute exact path="/">
+      <PrivateRoute exact path={["/", "/:id"]}>
         <Home />
       </PrivateRoute>
       <Route exact path="/login">
