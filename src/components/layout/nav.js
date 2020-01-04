@@ -141,7 +141,7 @@ export const Nav = ({ setOpenSideMenu }) => {
                 open={Boolean(anchorEl)}
                 onClose={onCloseMenu}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleClose}>Профиль</MenuItem>
                 <MenuItem onClick={onLogout}>Выйти</MenuItem>
               </Menu>
             </>

@@ -13,6 +13,16 @@ import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
 
+import Grid from "@material-ui/core/Grid";
+
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardMedia from "@material-ui/core/CardMedia";
+import CardContent from "@material-ui/core/CardContent";
+import Avatar from "@material-ui/core/Avatar";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import { red } from "@material-ui/core/colors";
+
 const useStyles = makeStyles(theme => ({
   appBar: {
     position: "relative"
@@ -20,6 +30,26 @@ const useStyles = makeStyles(theme => ({
   title: {
     marginLeft: theme.spacing(2),
     flex: 1
+  },
+  card: {
+    maxWidth: 345,
+  },
+  media: {
+    height: 0,
+    paddingTop: "56.25%" // 16:9
+  },
+  expand: {
+    transform: "rotate(0deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.shortest
+    })
+  },
+  expandOpen: {
+    transform: "rotate(180deg)"
+  },
+  avatar: {
+    backgroundColor: red[500]
   }
 }));
 
@@ -28,19 +58,32 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const PictureDialog = ({ onClose, id, open, ...dialogProps }) => {
-  const [data, setData] = useState(undefined);
+  const [pictureData, setPicture] = useState(undefined);
+  const [commentsData, setComments] = useState(undefined);
+  const [picturesData, setPictures] = useState(undefined);
+
   const classes = useStyles();
 
   const fetchData = () => {
-    fetch(`/data${id}.json`)
-      .then(response => {
-        return response.json();
+    fetch(`/picture${id}.json`)
+      .then(response => response.json())
+      .then(({ pictureData }) => {
+        setPicture(pictureData);
+
+        fetch(`/comment${id}.json`)
+          .then(response => response.json())
+          .then(({ commentsData }) => {
+            setComments(commentsData);
+
+              fetch('/pictures.json')
+              .then(response => response.json())
+              .then(({ picturesData }) => setPictures(picturesData));
+          });
       })
-      .then(({ data }) => {
-        setData(data);
-      })
-      .catch(function(error) {
-        setData(undefined);
+      .catch((error) => {
+        setPicture(undefined);
+        setComments(undefined);
+        setPictures(undefined);
       });
   };
 
@@ -51,7 +94,7 @@ const PictureDialog = ({ onClose, id, open, ...dialogProps }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, open]);
 
-  if (!data) {
+  if (!commentsData) {
     return (
       <Dialog
         fullScreen
@@ -96,15 +139,49 @@ const PictureDialog = ({ onClose, id, open, ...dialogProps }) => {
             <CloseIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            Sound {id}
+            Picture {id}
           </Typography>
           <Button autoFocus color="inherit" onClick={onClose}>
-            save
+            Exit
           </Button>
         </Toolbar>
       </AppBar>
+      
+      <div align = 'center'>
+      <Card className={classes.card}>
+      <CardHeader
+        avatar={
+          <Avatar
+            src={pictureData.author.image}
+            aria-label="recipe"
+            className={classes.avatar}
+          >
+            {pictureData.author.fullName}
+          </Avatar>
+        }
+        action={
+          <IconButton aria-label="settings">
+            <MoreVertIcon />
+          </IconButton>
+        }
+        title={pictureData.title}
+        subheader={pictureData.createdAt}
+      />
+      <CardMedia
+        className={classes.media}
+        image={pictureData.image}
+        title={pictureData.title}
+      />
+      <CardContent>
+        <Typography variant="body2" color="textSecondary" component="p">
+          {pictureData.description}
+        </Typography>
+      </CardContent>
+    </Card>
+    </div>
+
       <List>
-        {data.map(item => (
+        {commentsData.map(item => (
           <ListItem button>
             <ListItemText primary={item.name} secondary={item.email} />
           </ListItem>
@@ -118,6 +195,15 @@ const PictureDialog = ({ onClose, id, open, ...dialogProps }) => {
           />
         </ListItem>
       </List>
+        <b>СМОТРИТЕ ТАКЖЕ</b>  
+      <Grid container spacing={1}>
+          {picturesData.map(item => (
+            <Grid key={item.id} item xs={12} sm={6}>
+              <Card item={item} />
+            </Grid>
+          ))}
+        </Grid>
+
     </Dialog>
   );
 };

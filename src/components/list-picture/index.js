@@ -20,7 +20,7 @@ export const ListPicture = () => {
   const classes = useStyles();
   const list = useSelector(getList);
 
-  const showFullPicture = id => history.push(`/${id}`);
+  const showFullPicture = id => history.push(`/pictures/${id}`);
 
   return (
     <div className={classes.root}>

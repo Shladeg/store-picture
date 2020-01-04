@@ -1,0 +1,37 @@
+{
+"picturesData":[
+    {
+      "id": 3,
+      "author": {
+        "fullName": "Dima",
+        "phone": "+375291231256",
+        "image":
+          "https://static.mk.ru/upload/entities/2019/03/26/15/articles/detailPicture/30/11/6b/8e/3966ca09df04210f2ea19331ac6cf0db.jpg"
+      },
+      "title": "World",
+      "image":
+        "https://cdn.tripzaza.com/ru/destinations/files/2018/06/1-Yosemite_Valley-e1528945436839.jpg",
+      "price": "4567",
+      "createdAt": "date",
+      "description": "Your image",
+      "tag": ["vb", "vf", "fg"]
+    },
+    {
+      "id": 4,
+      "author": {
+        "fullName": "Lol",
+        "phone": "+375291231278",
+        "image":
+          "https://static.mk.ru/upload/entities/2019/03/26/15/articles/detailPicture/30/11/6b/8e/3966ca09df04210f2ea19331ac6cf0db.jpg"
+      },
+      "title": "Heh",
+      "image":
+        "https://avatars.mds.yandex.net/get-pdb/1530302/0cc9bf8b-ce09-4d33-9831-b3f71e15dca0/s600",
+      "price": "2352",
+      "createdAt": "date",
+      "description": "Lets go",
+      "tag": ["vv", "kk", "qw", "ol"]
+    }
+  ]
+}
+  

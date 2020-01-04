@@ -13,8 +13,7 @@ export const Routes = ({ user }) => {
 
   return (
     <Switch>
-      {/* exact - точное совпадение */}
-      <PrivateRoute exact path={["/", "/:id"]}>
+      <PrivateRoute exact path={["/", "/pictures/:id"]}>
         <Home />
       </PrivateRoute>
       <Route exact path="/login">
